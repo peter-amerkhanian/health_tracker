@@ -1,0 +1,30 @@
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="text-center">
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                {% block navbar %}
+                {% endblock navbar %}
+            </nav>
+        </div>
+    </header>
+    <div class="container text-center">
+        <h2 class="mt-5 mb-3">
+            <b>Health Tracker </b><i class="fas fa-stethoscope"></i>
+        </h2>
+    </div>
+    <div class="container">
+        <div class="text-center">
+            {% block content %}
+            {% endblock content %}
+        </div>
+    </div>
+</div>
+</body>
