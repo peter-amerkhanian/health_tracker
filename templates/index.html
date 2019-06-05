@@ -1,0 +1,114 @@
+<head>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="text-center">
+<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+        <div class="inner">
+            <nav class="nav nav-masthead justify-content-center">
+                <a class="nav-link active" href="#">Survey</a>
+                <a class="nav-link" href="#">Get Data</a>
+            </nav>
+        </div>
+    </header>
+    <div class="container text-center">
+        <h2 class="mt-5 mb-3">
+            <b>Health Tracker </b><i class="fas fa-stethoscope"></i>
+        </h2>
+    </div>
+    <div class="container">
+        <div class="text-center">
+            <form method="POST" action="" class="justify-content-center">
+                {{ form.hidden_tag() }} <i class="fas fa-bed"></i>
+                <b>{{ form.hours_of_sleep.label }} last night: </b>
+                <div class="form-group">
+                    {{ form.hours_of_sleep() }}
+
+                </div>
+
+                <div class="form-check">
+                    <div><b>{{ form.meditation.label }}</b></div>
+                    {% for choice in form.meditation %}
+                    <label class="">{{ choice }} {{ choice.label }} </label>
+                    {% endfor %}
+                </div>
+
+                                <div><b>{{ form.exercise.label }}: </b></div>
+                <div class="custom-control custom-radio" role="group" data-toggle="buttons">
+                    {% for choice in form.exercise %}
+                    <label class="">{{ choice }} {{ choice.label }} </label>
+                    {% endfor %}
+                </div>
+
+<hr class="my-2">
+
+                                <div><b>{{ form.fatigue.label }}: </b></div>
+                <i class="far fa-thumbs-up"></i>
+                <div class="btn-group" role="group" data-toggle="buttons">
+                    {% for choice in form.fatigue %}
+                    <label class="btn btn-secondary">{{ choice }} </label>
+                    {% endfor %}
+                </div>
+                <i class="far fa-thumbs-down"></i>
+
+                <div><b>{{ form.stress.label }}: </b></div>
+                <i class="far fa-thumbs-up"></i>
+                <div class="btn-group" role="group" data-toggle="buttons">
+                    {% for choice in form.stress %}
+                    <label class="btn btn-secondary">{{ choice }} </label>
+                    {% endfor %}
+                </div>
+                <i class="far fa-thumbs-down"></i>
+
+
+                <div><b>{{ form.rest.label }}: </b></div>
+                <i class="fas fa-thumbs-down"></i>
+                <div class="btn-group" role="group" data-toggle="buttons">
+                    {% for choice in form.rest %}
+                    <label class="btn btn-secondary">{{ choice }} </label>
+                    {% endfor %}
+                </div>
+                <i class="fas fa-thumbs-up"></i>
+
+
+                <div><b>{{ form.emotion.label }}: </b></div>
+                <i class="fas fa-thumbs-down"></i>
+                <div class="btn-group" role="group" data-toggle="buttons">
+                    {% for choice in form.emotion %}
+                    <label class="btn btn-secondary">{{ choice }} </label>
+                    {% endfor %}
+                </div>
+                <i class="fas fa-thumbs-up"></i>
+
+                <div><b>{{ form.comfort.label }}: </b></div>
+                <i class="fas fa-thumbs-down"></i>
+                <div class="btn-group" role="group" data-toggle="buttons">
+                    {% for choice in form.comfort %}
+                    <label class="btn btn-secondary">{{ choice }} </label>
+                    {% endfor %}
+                </div>
+                <i class="fas fa-thumbs-up"></i>
+
+                <div><b>{{ form.arousal.label }}: </b></div>
+                <i class="fas fa-thumbs-down"></i>
+                <div class="btn-group" role="group" data-toggle="buttons">
+                    {% for choice in form.arousal %}
+                    <label class="btn btn-secondary">{{ choice }}</label>
+                    {% endfor %}
+                </div>
+                <i class="fas fa-thumbs-up"></i>
+
+                <div class="form-group">
+                        {{ form.submit(class="btn btn-secondary mt-3 mb-2 mx-1") }}
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+</body>
