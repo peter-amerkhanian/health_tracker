@@ -24,6 +24,38 @@ hr {
   border-top: 1px solid #ffffff;
 }
 
+input[type='radio'] {
+        -webkit-appearance: none;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        outline: none;
+        border: 2px solid #ffffff;
+    }
+
+    input[type='radio']:before {
+        content: '';
+        display: block;
+        width: 60%;
+        height: 60%;
+        margin: 20% auto;
+        border-radius: 50%;
+    }
+
+ input[type="radio"]:checked:before {
+        background: transparent;
+
+    }
+
+    input[type="radio"]:checked {
+      border: 8px solid #0d47a1;
+    }
+
+        input[type="text"] {
+      border: 1px solid #ffffff;
+    }
+
+
 /*
  * Base structure
  */

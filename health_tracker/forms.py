@@ -1,11 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import BooleanField, IntegerField, StringField, SubmitField, SelectField, SelectMultipleField, widgets, RadioField
+from wtforms import IntegerField, SubmitField, RadioField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
-
-
-class MultiCheckboxField(SelectMultipleField):
-    widget = widgets.ListWidget(prefix_label=False)
-    option_widget = widgets.CheckboxInput()
 
 
 class HealthForm(FlaskForm):
@@ -28,10 +23,10 @@ class HealthForm(FlaskForm):
                        validators=[DataRequired()])
     exercise = RadioField('Minutes of exercise',
                           choices=[("0", "0"),
-                                   ("1", "15"),
-                                   ("2", "30"),
-                                   ("3", "45"),
-                                   ("4", "60")],
+                                   ("15", "15"),
+                                   ("30", "30"),
+                                   ("45", "45"),
+                                   ("60", "60")],
                           validators=[DataRequired()])
     meditation = RadioField('Did you meditate today?',
                                     choices=[('yes','Yes'),
