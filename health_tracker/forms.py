@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, RadioField
+from wtforms import IntegerField, SubmitField, RadioField, StringField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 
 
@@ -60,5 +60,15 @@ class HealthForm(FlaskForm):
                                    ("4", "4"),
                                    ("5", "5")],
                           validators=[DataRequired()])
+
+    submit = SubmitField('Submit')
+
+
+class LoginForm(FlaskForm):
+    def validate_name(form, field):
+        if field.data.lower() not in ['peter', 'tate']:
+            raise ValidationError('Sorry, you do not have an account with health tracker.')
+
+    name = StringField('Your first name', validators=[DataRequired(), validate_name])
 
     submit = SubmitField('Submit')

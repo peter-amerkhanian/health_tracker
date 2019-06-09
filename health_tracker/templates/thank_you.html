@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block navbar %}
 <a class="nav-link" href="{{ url_for('survey') }}">Survey</a>
-<a class="nav-link active" href="{{ url_for('data') }}">Get Data</a>
+<a class="nav-link" href="{{ url_for('data') }}">Get Data</a>
 {% endblock navbar %}
 {% block content %}
-{{ graph.data }}
+<div> Thank you for filling out the survey, {{ name }}. See you tomorrow!</div>
+
 {% endblock content %}

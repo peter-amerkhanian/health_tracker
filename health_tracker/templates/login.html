@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block navbar %}
+<a class="nav-link disabled" href="{{ url_for('survey') }}">Survey</a>
+<a class="nav-link disabled" href="{{ url_for('data') }}">Get Data</a>
+{% endblock navbar %}
+{% block content %}
+            <form method="POST" action="" class="justify-content-center">
+                {{ form.hidden_tag() }}
+                <b>{{ form.name.label }}: </b>
+                <div class="form-group">
+                    {{ form.name() }}
+                </div>
+                <div class="form-group">
+                    {{ form.submit(class="btn btn-secondary mt-3 mb-2 mx-1") }}
+                </div>
+            </form>
+            {% if form.name.errors %}
+            <div class="alert alert-danger" role="alert">
+                <span>{{ form.name.errors[0] }}</span>
+            </div>
+            {% endif %}
+
+{% endblock content %}

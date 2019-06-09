@@ -3,6 +3,7 @@ from health_tracker import db
 
 class Entry(db.Model):
     __tablename__ = "entry"
+    name = db.Column(db.String(50), unique=False, nullable=False)
     date = db.Column(db.DateTime, unique=True, nullable=False)
     id = db.Column(db.Integer, primary_key=True)
     hours_of_sleep = db.Column(db.Integer, unique=False, nullable=True)
