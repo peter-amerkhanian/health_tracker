@@ -4,6 +4,8 @@
 <a class="nav-link disabled" href="{{ url_for('data') }}">Get Data</a>
 {% endblock navbar %}
 {% block content %}
+<main role="main" class="inner cover">
+    <div class="container">
             <form method="POST" action="" class="justify-content-center">
                 {{ form.hidden_tag() }}
                 <b>{{ form.name.label }}: </b>
@@ -19,5 +21,6 @@
                 <span>{{ form.name.errors[0] }}</span>
             </div>
             {% endif %}
-
+        </div>
+</main>
 {% endblock content %}

@@ -4,5 +4,11 @@
 <a class="nav-link active" href="{{ url_for('data') }}">Get Data</a>
 {% endblock navbar %}
 {% block content %}
+<main role="main" class="inner cover">
+    <div class="container">
+<p>
 {{ graph.data }}
+</p>
+        </div>
+</main>
 {% endblock content %}

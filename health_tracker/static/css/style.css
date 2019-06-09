@@ -16,7 +16,8 @@ a:hover {
   color: #ffffff;
   text-shadow: none; /* Prevent inheritance from `body` */
   background-color: transparent;
-  border: .2rem solid #fff;
+  border: .2rem solid transparent;
+  margin: 0rem
   font-weight: 900;
 }
  /* Peter's additions:*/
@@ -78,6 +79,7 @@ body {
   justify-content: center;
   color: #fff;
   text-shadow: 0 .01rem .02rem #ffffff;
+  margin: 0px 30px;
 }
 
 .cover-container {

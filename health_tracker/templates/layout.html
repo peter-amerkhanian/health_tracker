@@ -4,9 +4,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+        <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
 </head>
 <body class="text-center">
-<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+<div class="cover-container d-flex h-100 p-3 flex-column">
     <header class="masthead mb-auto">
         <div class="inner">
             <nav class="nav nav-masthead justify-content-center">
@@ -15,16 +31,12 @@
             </nav>
         </div>
     </header>
-    <div class="container text-center">
-        <h2 class="mt-5 mb-3">
-            <b>Health Tracker </b><i class="fas fa-stethoscope"></i>
-        </h2>
-    </div>
-    <div class="container">
-        <div class="text-center">
             {% block content %}
             {% endblock content %}
-        </div>
+      <footer class="mastfoot mt-auto">
+    <div class="inner">
+      <p><small>built by<a href="https:peter-amerkhanian.github.io"> Peter</a>.</small></p>
     </div>
+  </footer>
 </div>
 </body>
