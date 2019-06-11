@@ -4,6 +4,7 @@ from pygal import Config
 from pygal.style import Style
 import psycopg2
 import os
+from flask import url_for
 
 from bokeh.plotting import figure
 from bokeh.embed import file_html
@@ -53,6 +54,7 @@ class Graph:
             config.stroke_style={'width': 7}
             config.dots_size = 10
             config.x_label_rotation = -45
+            config.css.append(url_for('static', filename='css/pygal_style.css'))
             # init data
             stress = [entry.__dict__['stress'] for entry in self.data]
             fatigue = [entry.__dict__['fatigue'] for entry in self.data]
