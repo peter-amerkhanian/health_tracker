@@ -1,14 +1,16 @@
 {% extends "layout.html" %}
 {% block navbar %}
+<a class="nav-link" href="{{ url_for('login') }}">Login</a>
 <a class="nav-link" href="{{ url_for('survey') }}">Survey</a>
 <a class="nav-link active" href="{{ url_for('data') }}">Get Data</a>
 {% endblock navbar %}
 {% block content %}
 <main role="main" class="inner cover">
-    <div class="container">
-<p>
-{{ graph.data }}
-</p>
+    <div class="container" width="auto">
+			<embed type="image/svg+xml" src={{ graph_data|safe }} style='width:600px'/>
         </div>
+    <p>
+        {{ raw_data }}
+    </p>
 </main>
 {% endblock content %}

@@ -10,7 +10,7 @@ import datetime
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        session['name'] = form.name.data
+        session['name'] = form.name.data.lower()
         return redirect(url_for('survey'))
     else:
         return render_template('login.html', form=form)
@@ -18,7 +18,7 @@ def login():
 
 @app.route('/survey', methods=['post', 'get'])
 def survey():
-    name = session['name'].title()
+    name = session['name']
     form = HealthForm()
     if form.validate_on_submit():
         entry = Entry(name=session['name'],
@@ -35,14 +35,15 @@ def survey():
                       )
         db.session.add(entry)
         db.session.commit()
-        return render_template('thank_you.html', name=name)
+        return render_template('thank_you.html', name=name.title())
     else:
-        return render_template('survey.html', name=name, form=form)
+        return render_template('survey.html', name=name.title(), form=form)
 
 
 @app.route('/data')
 def data():
-    name = session['name']
+    name = 'peter'
     graph = Graph(name)
-    graph.get_data()
-    return render_template('data.html', graph=graph)
+    graph.get_data(sessions_name=name)
+    graph_data = graph.pygal_line_plot()
+    return render_template('data.html', graph_data=graph_data, raw_data = graph.data)

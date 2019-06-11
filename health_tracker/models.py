@@ -17,12 +17,14 @@ class Entry(db.Model):
     arousal = db.Column(db.Integer, unique=False, nullable=True)
 
     def __repr__(self):
-        return "Entrys('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(self.hours_of_sleep,
-                                                                                          self.rest,
-                                                                                          self.fatigue,
-                                                                                          self.exercise,
-                                                                                          self.meditation,
-                                                                                          self.stress,
-                                                                                          self.emotion,
-                                                                                          self.arousal,
-                                                                                          self.date)
+        return "Entry('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',)".format(self.name,
+                                                                                                 self.date,
+                                                                                                 self.arousal,
+                                                                                                 self.comfort,
+                                                                                                 self.emotion,
+                                                                                                 self.stress,
+                                                                                                 self.meditation,
+                                                                                                 self.exercise,
+                                                                                                 self.fatigue,
+                                                                                                 self.rest,
+                                                                                                 self.hours_of_sleep)
