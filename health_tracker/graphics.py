@@ -22,6 +22,7 @@ class Graph:
                                       foreground_subtle='#ffffff',
                                       opacity='.6',
                                       opacity_hover='.9',
+                                      stroke_width=5,
                                       transition='400ms ease-in',
                                       colors=('#d35400', '#e74c3c', '#ecf0f1', '#f1c40f'),
                                       tooltip_font_size=36,
@@ -61,7 +62,7 @@ class Graph:
             date = [entry.__dict__['date'].strftime("%m/%d") for entry in self.data]
             # build graph
             graph = pygal.Line(config,
-                               range=(1, 5),
+                               range=(1, 6),
                                style=self.pygal_line_style)
             graph.x_labels = date
             graph.add('Comfort level', comfort)
