@@ -6,11 +6,8 @@
 {% endblock navbar %}
 {% block content %}
 <main role="main" class="inner cover">
-    <div class="container" width="auto">
-			<embed type="image/svg+xml" src={{ graph_data|safe }} style='width:600px'/>
-        </div>
-    <p>
-        {{ raw_data }}
-    </p>
+    <div class="container">
+        <embed type="image/svg+xml" src={{ graph_data|safe }} style='min-width:500px'/>
+</div>
 </main>
 {% endblock content %}

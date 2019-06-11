@@ -11,14 +11,18 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
         session['name'] = form.name.data.lower()
+        session['logout_alert'] = False
         return redirect(url_for('survey'))
     else:
-        return render_template('login.html', form=form)
+        return render_template('login.html', form=form, logout_alert=session.get('logout_alert'))
 
 
 @app.route('/survey', methods=['post', 'get'])
 def survey():
-    name = session['name']
+    name = session.get('name')
+    if not name:
+        session['logout_alert'] = True
+        return redirect(url_for('login'))
     form = HealthForm()
     if form.validate_on_submit():
         entry = Entry(name=session['name'],
@@ -42,8 +46,11 @@ def survey():
 
 @app.route('/data')
 def data():
-    name = 'peter'
+    name = session.get('name')
+    if not name:
+        session['logout_alert'] = True
+        return redirect(url_for('survey'))
     graph = Graph(name)
-    graph.get_data(sessions_name=name)
+    graph.get_data_sqlite(sessions_name=name)
     graph_data = graph.pygal_line_plot()
-    return render_template('data.html', graph_data=graph_data, raw_data = graph.data)
+    return render_template('data.html', graph_data=graph_data, graph=graph)
