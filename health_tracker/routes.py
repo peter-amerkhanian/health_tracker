@@ -46,7 +46,7 @@ def survey():
 
 @app.route('/data')
 def data():
-    name = 'peter'
+    name = session.get('name')
     if not name:
         session['logout_alert'] = True
         return redirect(url_for('survey'))
