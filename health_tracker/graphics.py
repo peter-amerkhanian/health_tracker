@@ -25,10 +25,10 @@ class Graph:
                                       stroke_width=5,
                                       transition='400ms ease-in',
                                       colors=('#d35400', '#e74c3c', '#ecf0f1', '#f1c40f'),
-                                      tooltip_font_size=36,
+                                      tooltip_font_size=30,
                                       label_font_size=24,
                                       major_label_font_size=24,
-                                      legend_font_size=30,
+                                      legend_font_size=24,
                                       font_family='googlefont:Work Sans')
         self.type= None
 
@@ -53,7 +53,7 @@ class Graph:
             config.show_legend = True
             config.include_x_axis = False
             config.stroke_style={'width': 7}
-            config.dots_size = 10
+            config.dots_size = 8
             config.x_label_rotation = -45
             # init data
             stress = [entry.__dict__['stress'] for entry in self.data]
@@ -61,15 +61,35 @@ class Graph:
             comfort = [entry.__dict__['comfort'] for entry in self.data]
             date = [entry.__dict__['date'].strftime("%m/%d") for entry in self.data]
             # build graph
-            graph = pygal.Line(config,
-                               range=(1, 6),
-                               style=self.pygal_line_style)
+            graph = pygal.Bar(config,
+                               margin_top=10,
+                               range=(1, 5),
+                               style=self.pygal_line_style,
+                               legend_at_bottom=True,
+                               legend_at_bottom_columns=3,
+                               legend_box_size=20,
+                               truncate_legend=-1)
             graph.x_labels = date
-            graph.add('Comfort level', comfort)
-            graph.add('Stress level', stress)
-            graph.add('Fatigue level', fatigue)
+            graph.add('Discomfort lvl', comfort)
+            graph.add('Stress lvl', stress)
+            graph.add('Fatigue lvl', fatigue)
+
+            graph_2 = pygal.Bar(config,
+                              margin_top=10,
+                              range=(1, 5),
+                              style=self.pygal_line_style,
+                              legend_at_bottom=True,
+                              legend_at_bottom_columns=2,
+                              legend_box_size=20,
+                              truncate_legend=-1)
+            graph_2.x_labels = date
+            rest = [entry.__dict__['rest'] for entry in self.data]
+            emotion = [entry.__dict__['emotion'] for entry in self.data]
+            graph_2.add('Emotion lvl', emotion)
+            graph_2.add('Rest lvl', rest)
+
             self.type = 'pygal'
-            return graph.render_data_uri()
+            return graph.render_data_uri(), graph_2.render_data_uri()
 
     def bokeh_line_plot(self):
         if not self.data:

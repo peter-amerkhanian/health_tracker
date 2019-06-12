@@ -34,7 +34,9 @@ a:hover {
  /* Peter's additions:*/
 hr {
   border-top: 1px solid #ffffff;
+  width: 50%;
 }
+
 
 input[type='radio'] {
         -webkit-appearance: none;
@@ -110,7 +112,7 @@ body {
 }
 
 .nav-masthead .nav-link {
-  padding: .25rem 0;
+  padding: 0rem 0;
   font-weight: 700;
   color: rgba(255, 255, 255, .5);
   background-color: transparent;
@@ -133,10 +135,10 @@ body {
 
 @media (min-width: 48em) {
   .masthead-brand {
-    float: left;
+    float: center;
   }
   .nav-masthead {
-    float: right;
+    float: center;
   }
 }
 
@@ -144,6 +146,7 @@ body {
 /*
  * Cover
  */
+ /*
 .cover {
   padding: 0 1.5rem;
 }
@@ -151,7 +154,7 @@ body {
   padding: .75rem 1.25rem;
   font-weight: 700;
 }
-
+*/
 
 /*
  * Footer

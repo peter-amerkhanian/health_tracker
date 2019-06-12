@@ -1,20 +1,17 @@
 {% extends "layout.html" %}
 {% block navbar %}
-<a class="nav-link" href="{{ url_for('login') }}">Login</a>
-<a class="nav-link active" href="{{ url_for('survey') }}">Survey</a>
-<a class="nav-link" href="{{ url_for('data') }}">Get Data</a>
+<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-primary active" href="{{ url_for('survey') }}">Survey</a>
+<a class="btn btn-primary" href="{{ url_for('data') }}">Get Data</a>
 {% endblock navbar %}
 {% block content %}
-<main role="main" class="inner cover">
-<div class="container text-center">
-    <h2 class="mt-5 mb-3">
-        <b>Health Tracker </b><i class="fas fa-stethoscope"></i>
-    </h2>
+<div class="mt-2 mb-2">
+    Hello, {{ name }}
 </div>
-<div> Hello, {{ name }}</div><br/>
-    <div class="container">
-            <form method="POST" action="" class="justify-content-center">
-                {{ form.hidden_tag() }} <i class="fas fa-bed"></i>
+<div class="overflow-auto" style="border-left-style: solid; border-width: 2px">
+            <form method="POST" action="" class="">
+                {{ form.hidden_tag() }}
+                <i class="fas fa-bed"></i>
                 {{ form.hours_of_sleep.label }} last night
                 <div class="form-group">
                     {{ form.hours_of_sleep() }}
@@ -97,6 +94,5 @@
                     {{ form.submit(class="btn btn-primary mt-3 mb-2 mx-1") }}
                 </div>
             </form>
-        </div>
-</main>
+    </div>
 {% endblock content %}

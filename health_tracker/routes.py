@@ -46,11 +46,11 @@ def survey():
 
 @app.route('/data')
 def data():
-    name = session.get('name')
+    name = 'peter'
     if not name:
         session['logout_alert'] = True
         return redirect(url_for('survey'))
     graph = Graph(name)
     graph.get_data_sqlite(sessions_name=name)
-    graph_data = graph.pygal_line_plot()
-    return render_template('data.html', graph_data=graph_data, graph=graph)
+    graph_data, graph_data_2 = graph.pygal_line_plot()
+    return render_template('data.html', graph_data=graph_data, graph_data_2=graph_data_2, graph=graph)

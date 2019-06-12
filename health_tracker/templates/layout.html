@@ -24,19 +24,22 @@
 <body class="text-center">
 <div class="cover-container d-flex h-100 p-3 flex-column">
     <header class="masthead mb-auto">
-        <div class="inner">
-            <nav class="nav nav-masthead justify-content-center">
-                {% block navbar %}
-                {% endblock navbar %}
-            </nav>
+            <h2 class="mt-2 mb-3">
+        <b>Health Tracker </b><i class="fas fa-stethoscope"></i>
+    </h2>
+        <div class="btn-group">
+        {% block navbar %}
+            {% endblock navbar %}
         </div>
     </header>
-            {% block content %}
-            {% endblock content %}
-      <footer class="mastfoot mt-auto">
-    <div class="inner">
-      <p><small>built by <a href="https:peter-amerkhanian.github.io">Peter</a>.</small></p>
-    </div>
-  </footer>
+    {% block content %}
+    {% endblock content %}
+    <footer class="mastfoot mt-auto">
+        <div class="inner">
+            <p>
+                <small>built by <a href="https:peter-amerkhanian.github.io">Peter</a>.</small>
+            </p>
+        </div>
+    </footer>
 </div>
 </body>
