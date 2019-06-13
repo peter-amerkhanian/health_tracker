@@ -71,7 +71,7 @@ def download():
         return redirect(url_for('login'))
     file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
     if os.getcwd().endswith('health_tracker'):
-        path = os.path.join(os.getcwd(), 'health_tracker', 'uploads', file)
+        path = os.path.join(os.getcwd(), 'health_tracker', 'uploads')
     else:
-        path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads', file)
+        path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads')
     return send_from_directory(path, file, as_attachment=True)
