@@ -54,7 +54,10 @@ def data():
     user = UserData(name)
     user.get_data_sqlite(sessions_name=name)
     file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
-    path = os.path.join(os.path.abspath(os.getcwd()), 'health_tracker', 'uploads', file)
+    if os.getcwd().endswith('health_tracker'):
+        path = os.path.join(os.getcwd(), 'health_tracker', 'uploads', file)
+    else:
+        path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads', file)
     user.to_csv(path)
     graph_data, graph_data_2 = user.pygal_line_plot()
     return render_template('data.html', graph_data=graph_data, graph_data_2=graph_data_2, graph=user, len=len)
@@ -67,5 +70,8 @@ def download():
         session['logout_alert'] = True
         return redirect(url_for('login'))
     file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
-    path = os.path.join(os.path.abspath(os.getcwd()), 'health_tracker', 'uploads')
+    if os.getcwd().endswith('health_tracker'):
+        path = os.path.join(os.getcwd(), 'health_tracker', 'uploads', file)
+    else:
+        path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads', file)
     return send_from_directory(path, file, as_attachment=True)
