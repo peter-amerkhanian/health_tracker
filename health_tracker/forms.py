@@ -66,7 +66,7 @@ class HealthForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     def validate_name(form, field):
-        if field.data.lower() not in ['peter', 'tate']:
+        if field.data.lower() not in ['peter', 'tate', 'test']:
             raise ValidationError('Sorry, you do not have an account with health tracker.')
 
     name = StringField('Your first name', validators=[DataRequired(), validate_name])

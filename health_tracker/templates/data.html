@@ -5,8 +5,10 @@
 <a class="btn btn-primary active" href="{{ url_for('data') }}">Get Data</a>
 {% endblock navbar %}
 {% block content %}
-<!--<div class="overflow-auto mt-3" style="border-left-style: solid; border-width: 2px">-->
+        {% if len(graph_data)>25 %}
         <embed type="image/svg+xml" src={{ graph_data|safe }} class="m-4" style='min-width:450px'/>
+        {% else %}
+        {{ graph_data }}
+        {% endif %}
 <!--<embed type="image/svg+xml" src={{ graph_data_2|safe }} class="m-4" style='min-width:450px'/>-->
-<!--</div>-->
 {% endblock content %}

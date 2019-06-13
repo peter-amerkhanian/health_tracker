@@ -4,6 +4,7 @@ from pygal import Config
 from pygal.style import Style
 import psycopg2
 import os
+from flask import Markup
 
 from bokeh.plotting import figure
 from bokeh.embed import file_html
@@ -46,7 +47,7 @@ class Graph:
     def pygal_line_plot(self):
         if not self.data:
             print('No data initialized')
-            return None
+            return Markup("""<p>No data available</p>"""), Markup("""<p>No data available</p>""")
         else:
             # Pygal config
             config = Config()

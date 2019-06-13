@@ -53,4 +53,4 @@ def data():
     graph = Graph(name)
     graph.get_data_sqlite(sessions_name=name)
     graph_data, graph_data_2 = graph.pygal_line_plot()
-    return render_template('data.html', graph_data=graph_data, graph_data_2=graph_data_2, graph=graph)
+    return render_template('data.html', graph_data=graph_data, graph_data_2=graph_data_2, graph=graph, len=len)
