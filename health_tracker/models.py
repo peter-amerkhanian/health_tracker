@@ -1,4 +1,5 @@
 from health_tracker import db
+import pandas as pd
 
 
 class Entry(db.Model):

@@ -1,9 +1,10 @@
-from flask import render_template, session, url_for, redirect
+from flask import render_template, session, url_for, redirect, send_from_directory
 from health_tracker import app, db
 from health_tracker.forms import HealthForm, LoginForm
 from health_tracker.models import Entry
-from health_tracker.graphics import Graph
+from health_tracker.graphics import UserData
 import datetime
+from pathlib import Path
 
 
 @app.route('/', methods=['post', 'get'])
@@ -49,8 +50,22 @@ def data():
     name = session.get('name')
     if not name:
         session['logout_alert'] = True
-        return redirect(url_for('survey'))
-    graph = Graph(name)
-    graph.get_data_sqlite(sessions_name=name)
-    graph_data, graph_data_2 = graph.pygal_line_plot()
-    return render_template('data.html', graph_data=graph_data, graph_data_2=graph_data_2, graph=graph, len=len)
+        return redirect(url_for('login'))
+    user = UserData(name)
+    user.get_data_sqlite(sessions_name=name)
+    file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
+    path = Path.cwd() / 'health_tracker' / 'uploads' / file
+    user.to_csv(path)
+    graph_data, graph_data_2 = user.pygal_line_plot()
+    return render_template('data.html', graph_data=graph_data, graph_data_2=graph_data_2, graph=user, len=len)
+
+
+@app.route('/download_csv')
+def download():
+    name = session.get('name')
+    if not name:
+        session['logout_alert'] = True
+        return redirect(url_for('login'))
+    file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
+    path = Path.cwd()/'health_tracker'/'uploads'
+    return send_from_directory(path, file, as_attachment=True)

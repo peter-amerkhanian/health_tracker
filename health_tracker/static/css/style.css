@@ -3,10 +3,12 @@
  */
 @import url('https://fonts.googleapis.com/css?family=Work+Sans&display=swap');
 /* Links */
-a,
-a:focus,
+a {
+  color: #fff
+}
 a:hover {
-  color: #fff;
+  color: #0d47a1;
+  text-decoration: none;
 }
 
 /* Custom default button */

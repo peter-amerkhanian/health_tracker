@@ -1,17 +1,19 @@
 from health_tracker.models import Entry
-import pygal
-from pygal import Config
-from pygal.style import Style
 import psycopg2
 import os
 from flask import Markup
+import pandas as pd
 
 from bokeh.plotting import figure
 from bokeh.embed import file_html
 from bokeh.resources import CDN
 
+import pygal
+from pygal import Config
+from pygal.style import Style
 
-class Graph:
+
+class UserData:
     def __init__(self, name):
         self.name = name
         self.data = None
@@ -31,18 +33,28 @@ class Graph:
                                       major_label_font_size=24,
                                       legend_font_size=24,
                                       font_family='googlefont:Work Sans')
-        self.type= None
+        self.type = None
 
     def get_data_sqlite(self, sessions_name):
         self.data = Entry.query.filter(Entry.name == sessions_name).all()
-        print(self.data)
 
     def get_data_postgres(self, sessions_name):
         conn = psycopg2.connect(os.environ['DB_CONNECTION'])
         cursor = conn.cursor()
         cursor.execute('SELECT * FROM "entry" WHERE name=\'{}\''.format(self.name))
         self.data = cursor.fetchall()
-        print(self.data)
+
+    def to_csv(self, path):
+        if self.data:
+            df = pd.DataFrame([entry.__dict__ for entry in self.data])
+            df = df.drop("_sa_instance_state", axis=1)
+            columns = df.columns.to_list()
+            order = [7, 9, 2, 0, 1, 3, 4, 5, 6, 10, 11, 8]
+            columns = [columns[ind] for ind in order]
+            df = df[columns]
+            df.to_csv(path)
+        else:
+            print('No data initialized')
 
     def pygal_line_plot(self):
         if not self.data:
