@@ -61,7 +61,7 @@ def data():
         path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads')
     user.to_csv(os.path.join(path, csv_file))
     user.to_excel(os.path.join(path, xlsx_file))
-    user.pygal_line_plot(['stress', 'fatigue', 'comfort'])
+    user.pygal_line_plot(['stress', 'fatigue', 'comfort', 'arousal', 'rest'])
     return render_template('data.html', user=user)
 
 
@@ -71,7 +71,8 @@ def visuals():
     if not name:
         session['logout_alert'] = True
         return redirect(url_for('login'))
-    return render_template('visuals.html')
+    path = url_for('static', filename='{}_line_graph.svg'.format(name))
+    return render_template('visuals.html', path=path)
 
 
 @app.route('/download_csv')

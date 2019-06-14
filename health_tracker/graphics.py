@@ -90,12 +90,11 @@ class UserData:
             config.dots_size = 8
             config.x_label_rotation = -45
             # init graph
-            graph = pygal.Line(config,
+            graph = pygal.Bar(config,
                                margin_top=10,
                                range=(1, 5),
                                style=self.pygal_line_style,
                                legend_at_bottom=True,
-                               legend_at_bottom_columns=3,
                                legend_box_size=20,
                                truncate_legend=-1)
             # init data
