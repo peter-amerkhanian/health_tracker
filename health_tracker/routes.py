@@ -52,24 +52,49 @@ def data():
         session['logout_alert'] = True
         return redirect(url_for('login'))
     user = UserData(name)
-    user.get_data_sqlite(sessions_name=name)
-    file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
+    user.get_data_sqlite()
+    csv_file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
+    xlsx_file = csv_file.replace('.csv', '.xlsx')
     if os.getcwd().endswith('health_tracker'):
-        path = os.path.join(os.getcwd(), 'health_tracker', 'uploads', file)
+        path = os.path.join(os.getcwd(), 'health_tracker', 'uploads')
     else:
-        path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads', file)
-    user.to_csv(path)
-    graph_data, graph_data_2 = user.pygal_line_plot()
-    return render_template('data.html', graph_data=graph_data, graph_data_2=graph_data_2, graph=user, len=len)
+        path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads')
+    user.to_csv(os.path.join(path, csv_file))
+    user.to_excel(os.path.join(path, xlsx_file))
+    user.pygal_line_plot(['stress', 'fatigue', 'comfort'])
+    return render_template('data.html', user=user)
+
+
+@app.route('/visualized_data')
+def visuals():
+    name = session.get('name')
+    if not name:
+        session['logout_alert'] = True
+        return redirect(url_for('login'))
+    return render_template('visuals.html')
 
 
 @app.route('/download_csv')
-def download():
+def download_csv():
     name = session.get('name')
     if not name:
         session['logout_alert'] = True
         return redirect(url_for('login'))
     file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
+    if os.getcwd().endswith('health_tracker'):
+        path = os.path.join(os.getcwd(), 'health_tracker', 'uploads')
+    else:
+        path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads')
+    return send_from_directory(path, file, as_attachment=True)
+
+
+@app.route('/download_xlsx')
+def download_xlsx():
+    name = session.get('name')
+    if not name:
+        session['logout_alert'] = True
+        return redirect(url_for('login'))
+    file = '{}_data_{}.xlsx'.format(name, datetime.datetime.today().strftime("%Y"))
     if os.getcwd().endswith('health_tracker'):
         path = os.path.join(os.getcwd(), 'health_tracker', 'uploads')
     else:
