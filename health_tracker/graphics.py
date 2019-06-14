@@ -104,7 +104,8 @@ class UserData:
             for var in vars:
                 data = [entry.__dict__[var] for entry in self.data]
                 graph.add('{} lvl'.format(var), data)
-            graph.render_to_file(os.path.join(os.getcwd(),
-                                              'health_tracker',
-                                              'static',
+            path = os.path.join(os.getcwd(),'health_tracker', 'static') if \
+                os.getcwd().endswith('health_tracker') else \
+                os.path.join(os.getcwd(),'health_tracker', 'health_tracker', 'static')
+            graph.render_to_file(os.path.join(path,
                                               '{}_line_graph.svg'.format(self.name)))
