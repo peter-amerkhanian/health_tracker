@@ -138,10 +138,10 @@ body {
 
 @media (min-width: 48em) {
   .masthead-brand {
-    float: center;
+    float: left;
   }
   .nav-masthead {
-    float: center;
+    float: right;
   }
 }
 
@@ -149,7 +149,7 @@ body {
 /*
  * Cover
  */
- /*
+
 .cover {
   padding: 0 1.5rem;
 }
@@ -157,7 +157,7 @@ body {
   padding: .75rem 1.25rem;
   font-weight: 700;
 }
-*/
+
 
 /*
  * Footer
