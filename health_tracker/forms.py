@@ -1,27 +1,27 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, RadioField, StringField
+from wtforms import IntegerField, SubmitField, RadioField, StringField, SelectField
 from wtforms.validators import DataRequired, Length, Email, ValidationError
 
 
 class HealthForm(FlaskForm):
     hours_of_sleep = IntegerField('Hours of sleep',
-                       validators=[DataRequired()],
-                       render_kw={"placeholder": ""})
+                                  validators=[DataRequired()],
+                                  render_kw={"placeholder": ""})
     rest = RadioField('How rested do you feel?',
-                           choices=[("1", "1"),
-                                    ("2", "2"),
-                                    ("3", "3"),
-                                    ("4", "4"),
-                                    ("5", "5")],
-                           validators=[DataRequired()])
+                      choices=[("1", "1"),
+                               ("2", "2"),
+                               ("3", "3"),
+                               ("4", "4"),
+                               ("5", "5")],
+                      validators=[DataRequired()])
     fatigue = RadioField('How fatigued do you feel?',
-                       choices=[("1", "1"),
-                                ("2", "2"),
-                                ("3", "3"),
-                                ("4", "4"),
-                                ("5", "5")],
-                       validators=[DataRequired()])
-    exercise = RadioField('Minutes of exercise',
+                         choices=[("1", "1"),
+                                  ("2", "2"),
+                                  ("3", "3"),
+                                  ("4", "4"),
+                                  ("5", "5")],
+                         validators=[DataRequired()])
+    exercise = RadioField('Minutes of exercise:',
                           choices=[("0", "0"),
                                    ("15", "15"),
                                    ("30", "30"),
@@ -29,16 +29,16 @@ class HealthForm(FlaskForm):
                                    ("60", "60")],
                           validators=[DataRequired()])
     meditation = RadioField('Did you meditate today?',
-                                    choices=[('yes','Yes'),
-                                             ('no','No')],
-                                    validators=[DataRequired()])
+                            choices=[('yes', 'Yes'),
+                                     ('no', 'No')],
+                            validators=[DataRequired()])
     stress = RadioField('Level of stress today (work)',
-                          choices=[("1", "1"),
-                                   ("2", "2"),
-                                   ("3", "3"),
-                                   ("4", "4"),
-                                   ("5", "5")],
-                          validators=[DataRequired()])
+                        choices=[("1", "1"),
+                                 ("2", "2"),
+                                 ("3", "3"),
+                                 ("4", "4"),
+                                 ("5", "5")],
+                        validators=[DataRequired()])
     emotion = RadioField('General emotional state',
                          choices=[("1", "1"),
                                   ("2", "2"),
@@ -47,19 +47,41 @@ class HealthForm(FlaskForm):
                                   ("5", "5")],
                          validators=[DataRequired()])
     comfort = RadioField('General level of pain/discomfort',
-                          choices=[("1", "1"),
-                                   ("2", "2"),
-                                   ("3", "3"),
-                                   ("4", "4"),
-                                   ("5", "5")],
-                          validators=[DataRequired()])
+                         choices=[("1", "1"),
+                                  ("2", "2"),
+                                  ("3", "3"),
+                                  ("4", "4"),
+                                  ("5", "5")],
+                         validators=[DataRequired()])
     arousal = RadioField('General level of arousal',
-                          choices=[("1", "1"),
-                                   ("2", "2"),
-                                   ("3", "3"),
-                                   ("4", "4"),
-                                   ("5", "5")],
+                         choices=[("1", "1"),
+                                  ("2", "2"),
+                                  ("3", "3"),
+                                  ("4", "4"),
+                                  ("5", "5")],
+                         validators=[DataRequired()], )
+    headache = RadioField('Headache today?',
+                          choices=[('yes', 'Yes'),
+                                   ('no', 'No')],
                           validators=[DataRequired()])
+    cannabis = RadioField('Cannabis use today?',
+                          choices=[('yes', 'Yes'),
+                                   ('no', 'No')],
+                          validators=[DataRequired()])
+    morning = SelectField("Morning started with:",
+                          choices=[('looking at phone', 'phone'),
+                                   ('exercise', 'exercise'),
+                                   ('meditation', 'meditation'),
+                                   ('work', 'work'),
+                                   ('breakfast', 'breakfast')],
+                          validators=[DataRequired()])
+    pills = SelectField("Pills taken:",
+                        choices=[
+                            ('none', 'none'),
+                            ('Xanax', 'Xanax'),
+                            ('painkiller', 'painkiller'),
+                            ('sleeping pill', 'sleeping pill')],
+                        validators=[DataRequired()])
 
     submit = SubmitField('Submit')
 

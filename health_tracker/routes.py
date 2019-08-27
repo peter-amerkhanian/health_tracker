@@ -36,7 +36,10 @@ def survey():
                       emotion=form.emotion.data,
                       comfort=form.comfort.data,
                       arousal=form.arousal.data,
-                      date=datetime.datetime.today()
+                      date=datetime.datetime.today(),
+                      headache=form.headache.data,
+                      cannabis=form.cannabis.data,
+                      morning=form.morning.data
                       )
         db.session.add(entry)
         db.session.commit()

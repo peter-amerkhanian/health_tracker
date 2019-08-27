@@ -1,5 +1,4 @@
 from health_tracker import db
-import pandas as pd
 
 
 class Entry(db.Model):
@@ -16,16 +15,25 @@ class Entry(db.Model):
     emotion = db.Column(db.Integer, unique=False, nullable=True)
     comfort = db.Column(db.Integer, unique=False, nullable=True)
     arousal = db.Column(db.Integer, unique=False, nullable=True)
+    headache = db.Column(db.String(10), unique=False, nullable=True)
+    cannabis = db.Column(db.String(10), unique=False, nullable=True)
+    morning = db.Column(db.String(50), unique=False, nullable=True)
+    pills = db.Column(db.String(50), unique=False, nullable=True)
 
     def __repr__(self):
-        return "Entry('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}',)".format(self.name,
-                                                                                                 self.date,
-                                                                                                 self.arousal,
-                                                                                                 self.comfort,
-                                                                                                 self.emotion,
-                                                                                                 self.stress,
-                                                                                                 self.meditation,
-                                                                                                 self.exercise,
-                                                                                                 self.fatigue,
-                                                                                                 self.rest,
-                                                                                                 self.hours_of_sleep)
+        return "Entry('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
+            self.name,
+            self.date,
+            self.arousal,
+            self.comfort,
+            self.emotion,
+            self.stress,
+            self.meditation,
+            self.exercise,
+            self.fatigue,
+            self.rest,
+            self.hours_of_sleep,
+            self.headache,
+            self.cannabis,
+            self.morning,
+            self.pills)
