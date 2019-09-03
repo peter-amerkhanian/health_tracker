@@ -1,15 +1,21 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, RadioField, StringField, SelectField, DateField
-from wtforms.validators import DataRequired, Length, Email, ValidationError
+from wtforms import IntegerField, SubmitField, RadioField, StringField, SelectField, DateTimeField
+from wtforms.validators import DataRequired, ValidationError
+from .models import Entry
 
 
 class HealthForm(FlaskForm):
-
     def validate_scroll(form, field):
         if field.data == 0:
             raise ValidationError('Please fill out all fields')
 
-    date = DateField('Date:', validators=[DataRequired()])
+    def validate_unique(form, field):
+        print(field.data)
+        date = Entry.query.filter_by(date=field.data).first()
+        if date:
+            raise ValidationError('This date already has an entry')
+
+    date = DateTimeField('Date:', validators=[DataRequired(), validate_unique])
     hours_of_sleep = IntegerField('Hours of sleep',
                                   validators=[DataRequired()],
                                   render_kw={"placeholder": ""})
