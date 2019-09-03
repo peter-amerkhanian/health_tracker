@@ -5,131 +5,133 @@
 <a class="btn btn-primary" href="{{ url_for('data') }}">Data</a>
 {% endblock navbar %}
 {% block content %}
-<div class="mt-2 mb-2">
+<div class="mt-2 mb-3">
     Hello, {{ name }}
 </div>
 <div id="#myPage" class="mb-5" style="">
-            <form method="POST" action="" class="m-2">
-                {{ form.hidden_tag() }}
 
-                <i class="fas fa-bed"></i>
-                {{ form.hours_of_sleep.label }} last night
-                <div class="form-group">
-                    {{ form.hours_of_sleep() }}
+    <form method="POST" action="" class="m-2">
+        {{ form.hidden_tag() }}
 
-                </div>
+        {{ form.date.label }}
+        <div class="form-group">
+            {{ form.date(type="date") }}
+        </div>
 
-                <div class="form-check">
-                    <div><i class="far fa-dizzy"></i> {{ form.headache.label }}</div>
-                    {% for choice in form.headache %}
-                    <label class="">{{ choice }} {{ choice.label }} </label>
-                    {% endfor %}
-                </div>
+        <i class="fas fa-bed"></i>
+        {{ form.hours_of_sleep.label }} last night
+        <div class="form-group">
+            {{ form.hours_of_sleep() }}
+        </div>
 
-                <div class="form-check">
-                    <div><i class="fas fa-cannabis"></i> {{ form.cannabis.label }}</div>
-                    {% for choice in form.cannabis %}
-                    <label class="">{{ choice }} {{ choice.label }} </label>
-                    {% endfor %}
-                </div>
+        <div class="form-check">
+            <div><i class="far fa-dizzy"></i> {{ form.headache.label }}</div>
+            {% for choice in form.headache %}
+            <label class="">{{ choice }} {{ choice.label }} </label>
+            {% endfor %}
+        </div>
 
-                <div class="form-check">
-                    <div><i class="far fa-smile"></i> {{ form.meditation.label }}</div>
-                    {% for choice in form.meditation %}
-                    <label class="">{{ choice }} {{ choice.label }} </label>
-                    {% endfor %}
-                </div>
+        <div class="form-check">
+            <div><i class="fas fa-cannabis"></i> {{ form.cannabis.label }}</div>
+            {% for choice in form.cannabis %}
+            <label class="">{{ choice }} {{ choice.label }} </label>
+            {% endfor %}
+        </div>
 
-                <hr class="my-2">
+        <div class="form-check">
+            <div><i class="far fa-smile"></i> {{ form.meditation.label }}</div>
+            {% for choice in form.meditation %}
+            <label class="">{{ choice }} {{ choice.label }} </label>
+            {% endfor %}
+        </div>
 
-                <div><i class="far fa-sun"></i> {{ form.morning.label }} </div>
-                <div class="custom-control custom-radio mb-2" style="display: block;" role="group" data-toggle="buttons">
-                    <tr>
-                        <td>{{ form.morning(class_="form-control") }}</td>
-                    </tr>
-                </div>
+        <hr class="my-2">
 
-                <div><i class="fas fa-pills"></i> {{ form.pills.label }} </div>
-                <div class="custom-control custom-radio mb-2" style="display: block;" role="group" data-toggle="buttons">
-                    <tr>
-                        <td>{{ form.pills(class_="form-control") }}</td>
-                    </tr>
-                </div>
+        <div><i class="far fa-sun"></i> {{ form.morning.label }}</div>
+        <div class="custom-control custom-radio mb-2" style="display: block;" role="group" data-toggle="buttons">
+            <tr>
+                <td>{{ form.morning(class_="form-control") }}</td>
+            </tr>
+        </div>
 
-                <div><i class="fas fa-running"></i> {{ form.exercise.label }} </div>
-                <div class="custom-control custom-radio" role="group" data-toggle="buttons">
-                    {% for choice in form.exercise %}
-                    <label class="">{{ choice }} {{ choice.label }} </label>
-                    {% endfor %}
-                </div>
+        <div><i class="fas fa-pills"></i> {{ form.pills.label }}</div>
+        <div class="custom-control custom-radio mb-2" style="display: block;" role="group" data-toggle="buttons">
+            <tr>
+                <td>{{ form.pills(class_="form-control") }}</td>
+            </tr>
+        </div>
 
-                <hr class="my-2">
+        <div><i class="fas fa-running"></i> {{ form.exercise.label }}</div>
+        <div class="custom-control custom-radio" role="group" data-toggle="buttons">
+            {% for choice in form.exercise %}
+            <label class="">{{ choice }} {{ choice.label }} </label>
+            {% endfor %}
+        </div>
 
-                <div>{{ form.fatigue.label }} </div>
-                <i class="far fa-thumbs-up"></i>
-                <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
-                    {% for choice in form.fatigue %}
-                    <label class="btn btn-secondary">{{ choice }} </label>
-                    {% endfor %}
-                </div>
-                <i class="far fa-thumbs-down"></i>
+        <hr class="my-2">
 
-                <div>{{ form.stress.label }} </div>
-                <i class="far fa-thumbs-up"></i>
-                <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
-                    {% for choice in form.stress %}
-                    <label class="btn btn-secondary">{{ choice }} </label>
-                    {% endfor %}
-                </div>
-                <i class="far fa-thumbs-down"></i>
+        <div>{{ form.fatigue.label }}</div>
+        <i class="far fa-thumbs-up"></i>
+        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
+            {% for choice in form.fatigue %}
+            <label class="btn btn-secondary">{{ choice }} </label>
+            {% endfor %}
+        </div>
+        <i class="far fa-thumbs-down"></i>
 
-
-                <div>{{ form.rest.label }} </div>
-                <i class="fas fa-thumbs-down"></i>
-                <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
-                    {% for choice in form.rest %}
-                    <label class="btn btn-secondary">{{ choice }} </label>
-                    {% endfor %}
-                </div>
-                <i class="fas fa-thumbs-up"></i>
+        <div>{{ form.stress.label }}</div>
+        <i class="far fa-thumbs-up"></i>
+        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
+            {% for choice in form.stress %}
+            <label class="btn btn-secondary">{{ choice }} </label>
+            {% endfor %}
+        </div>
+        <i class="far fa-thumbs-down"></i>
 
 
-                <div>{{ form.emotion.label }} </div>
-                <i class="fas fa-thumbs-down"></i>
-                <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
-                    {% for choice in form.emotion %}
-                    <label class="btn btn-secondary">{{ choice }} </label>
-                    {% endfor %}
-                </div>
-                <i class="fas fa-thumbs-up"></i>
+        <div>{{ form.rest.label }}</div>
+        <i class="fas fa-thumbs-down"></i>
+        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
+            {% for choice in form.rest %}
+            <label class="btn btn-secondary">{{ choice }} </label>
+            {% endfor %}
+        </div>
+        <i class="fas fa-thumbs-up"></i>
 
-                <div>{{ form.comfort.label }}</div>
-                <i class="fas fa-thumbs-down"></i>
-                <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
-                    {% for choice in form.comfort %}
-                    <label class="btn btn-secondary">{{ choice }} </label>
-                    {% endfor %}
-                </div>
-                <i class="fas fa-thumbs-up"></i>
 
-                <div>{{ form.arousal.label }}</div>
-                <i class="fas fa-thumbs-down"></i>
-                <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
-                    {% for choice in form.arousal %}
-                    <label class="btn btn-secondary">{{ choice }}</label>
-                    {% endfor %}
-                </div>
-                <i class="fas fa-thumbs-up"></i>
+        <div>{{ form.emotion.label }}</div>
+        <i class="fas fa-thumbs-down"></i>
+        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
+            {% for choice in form.emotion %}
+            <label class="btn btn-secondary">{{ choice }} </label>
+            {% endfor %}
+        </div>
+        <i class="fas fa-thumbs-up"></i>
 
-                <div class="form-group">
-                    {{ form.submit(class="btn btn-primary mt-3 mb-2 mx-1") }}
-                </div>
-            </form>
-    <a class="btn btn-primary" href="#myPage" title="To Top">
-                <span class="glyphicon glyphicon-chevron-up"></span>
-            </a>
+        <div>{{ form.comfort.label }}</div>
+        <i class="fas fa-thumbs-down"></i>
+        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
+            {% for choice in form.comfort %}
+            <label class="btn btn-secondary">{{ choice }} </label>
+            {% endfor %}
+        </div>
+        <i class="fas fa-thumbs-up"></i>
 
-    </div>
+        <div>{{ form.arousal.label }}</div>
+        <i class="fas fa-thumbs-down"></i>
+        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
+            {% for choice in form.arousal %}
+            <label class="btn btn-secondary">{{ choice }}</label>
+            {% endfor %}
+        </div>
+        <i class="fas fa-thumbs-up"></i>
+
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary mt-3 mb-2 mx-1") }}
+        </div>
+    </form>
+
+</div>
 <script>
     $(document).ready(function(){
   // Add smooth scrolling to all links in navbar + footer link
@@ -156,5 +158,6 @@
     } // End if
   });
 })
+
 </script>
 {% endblock content %}

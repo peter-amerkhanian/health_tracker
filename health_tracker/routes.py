@@ -1,4 +1,4 @@
-from flask import render_template, session, url_for, redirect, send_from_directory
+from flask import render_template, session, url_for, redirect, send_from_directory, flash, request
 from health_tracker import app, db
 from health_tracker.forms import HealthForm, LoginForm
 from health_tracker.models import Entry
@@ -27,6 +27,7 @@ def survey():
     form = HealthForm()
     if form.validate_on_submit():
         entry = Entry(name=session['name'],
+                      date=form.date.data,
                       hours_of_sleep=form.hours_of_sleep.data,
                       rest=form.rest.data,
                       fatigue=form.fatigue.data,
@@ -36,15 +37,16 @@ def survey():
                       emotion=form.emotion.data,
                       comfort=form.comfort.data,
                       arousal=form.arousal.data,
-                      date=datetime.datetime.today(),
                       headache=form.headache.data,
                       cannabis=form.cannabis.data,
                       morning=form.morning.data
                       )
+        print(entry)
         db.session.add(entry)
         db.session.commit()
         return render_template('thank_you.html', name=name.title())
     else:
+        flash("Error: Missing fields")
         return render_template('survey.html', name=name.title(), form=form)
 
 
