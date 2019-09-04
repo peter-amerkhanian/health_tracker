@@ -1,24 +1,22 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, RadioField, StringField, SelectField, DateTimeField
+from wtforms import IntegerField, SubmitField, RadioField, StringField, SelectField, DateTimeField, DateField
 from wtforms.validators import DataRequired, ValidationError
 from .models import Entry
+from datetime import datetime
 
 
 class HealthForm(FlaskForm):
-    def validate_scroll(form, field):
-        if field.data == 0:
-            raise ValidationError('Please fill out all fields')
+    def validate_unique(self, field):
+        date_entry = field.data
+        date = Entry.query.filter_by(date=datetime(date_entry.year, date_entry.month, date_entry.day)).first()
+        print('doin it')
+        if date is not None:
+            print("error")
+            raise ValidationError('That date already has an entry')
 
-    def validate_unique(form, field):
-        print(field.data)
-        date = Entry.query.filter_by(date=field.data).first()
-        if date:
-            raise ValidationError('This date already has an entry')
-
-    date = DateTimeField('Date:', validators=[DataRequired(), validate_unique])
+    date = DateField('Date:', validators=[DataRequired(), validate_unique])
     hours_of_sleep = IntegerField('Hours of sleep',
-                                  validators=[DataRequired()],
-                                  render_kw={"placeholder": ""})
+                                  validators=[DataRequired()])
     rest = RadioField('How rested do you feel?',
                       choices=[("1", "1"),
                                ("2", "2"),
@@ -87,7 +85,7 @@ class HealthForm(FlaskForm):
                                    ('meditation', 'meditation'),
                                    ('work', 'work'),
                                    ('breakfast', 'breakfast')],
-                          validators=[DataRequired(), validate_scroll])
+                          validators=[DataRequired(message="Please do not leave fields blank")])
     pills = SelectField("Pills taken:",
                         choices=[
                             (0, '--Select One--'),
@@ -95,7 +93,7 @@ class HealthForm(FlaskForm):
                             ('Xanax', 'Xanax'),
                             ('painkiller', 'painkiller'),
                             ('sleeping pill', 'sleeping pill')],
-                        validators=[DataRequired(), validate_scroll])
+                        validators=[DataRequired(message="Please do not leave fields blank")])
     submit = SubmitField('Submit')
 
 

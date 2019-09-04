@@ -3,7 +3,7 @@ from health_tracker import app, db
 from health_tracker.forms import HealthForm, LoginForm
 from health_tracker.models import Entry
 from health_tracker.graphics import UserData
-import datetime
+from datetime import datetime
 import os
 
 
@@ -25,9 +25,13 @@ def survey():
         session['logout_alert'] = True
         return redirect(url_for('login'))
     form = HealthForm()
-    if form.validate_on_submit():
+    print(form.date.data)
+    print(form.hours_of_sleep.data)
+    if request.method == 'POST' and form.validate():
+        print("ok")
+        date_entry = form.date.data
         entry = Entry(name=session['name'],
-                      date=form.date.data,
+                      date=datetime(date_entry.year, date_entry.month, date_entry.day),
                       hours_of_sleep=form.hours_of_sleep.data,
                       rest=form.rest.data,
                       fatigue=form.fatigue.data,
@@ -46,7 +50,6 @@ def survey():
         db.session.commit()
         return render_template('thank_you.html', name=name.title())
     else:
-        flash("Error: Missing fields")
         return render_template('survey.html', name=name.title(), form=form)
 
 
@@ -58,7 +61,7 @@ def data():
         return redirect(url_for('login'))
     user = UserData(name)
     user.get_data_sqlite()
-    csv_file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
+    csv_file = '{}_data_{}.csv'.format(name, datetime.today().strftime("%Y"))
     xlsx_file = csv_file.replace('.csv', '.xlsx')
     if os.getcwd().endswith('health_tracker'):
         path = os.path.join(os.getcwd(), 'health_tracker', 'uploads')
@@ -86,7 +89,7 @@ def download_csv():
     if not name:
         session['logout_alert'] = True
         return redirect(url_for('login'))
-    file = '{}_data_{}.csv'.format(name, datetime.datetime.today().strftime("%Y"))
+    file = '{}_data_{}.csv'.format(name, datetime.today().strftime("%Y"))
     if os.getcwd().endswith('health_tracker'):
         path = os.path.join(os.getcwd(), 'health_tracker', 'uploads')
     else:
@@ -100,7 +103,7 @@ def download_xlsx():
     if not name:
         session['logout_alert'] = True
         return redirect(url_for('login'))
-    file = '{}_data_{}.xlsx'.format(name, datetime.datetime.today().strftime("%Y"))
+    file = '{}_data_{}.xlsx'.format(name, datetime.today().strftime("%Y"))
     if os.getcwd().endswith('health_tracker'):
         path = os.path.join(os.getcwd(), 'health_tracker', 'uploads')
     else:

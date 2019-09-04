@@ -13,14 +13,15 @@
     <form method="POST" action="" class="m-2">
         {{ form.hidden_tag() }}
 
-        <i class="far fa-calendar-alt"></i>
-        {{ form.date.label }}
+        <i class="far fa-calendar-alt"></i> {{ form.date.label }}
         <div class="form-group">
             {{ form.date(type="date") }}
         </div>
         {% if form.date.errors %}
         <div class="alert alert-danger" role="alert">
-            <span>You already have an entry for that date</span>
+            {% for error in form.date.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
         </div>
         {% endif %}
 
@@ -29,11 +30,6 @@
         <div class="form-group">
             {{ form.hours_of_sleep() }}
         </div>
-        {% if form.hours_of_sleep.errors %}
-        <div class="alert alert-danger" role="alert">
-            <span>Please enter a value</span>
-        </div>
-        {% endif %}
 
         <div class="form-check">
             {% if form.headache.errors %}
@@ -105,6 +101,15 @@
         </div>
         <i class="far fa-thumbs-down"></i>
 
+        <div>{{ form.comfort.label }}</div>
+        <i class="far fa-thumbs-up"></i>
+        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
+            {% for choice in form.comfort %}
+            <label class="btn btn-secondary">{{ choice }} </label>
+            {% endfor %}
+        </div>
+        <i class="far fa-thumbs-down"></i>
+
 
         <div>{{ form.rest.label }}</div>
         <i class="fas fa-thumbs-down"></i>
@@ -125,14 +130,6 @@
         </div>
         <i class="fas fa-thumbs-up"></i>
 
-        <div>{{ form.comfort.label }}</div>
-        <i class="fas fa-thumbs-down"></i>
-        <div class="btn-group btn-group-sm" role="group" data-toggle="buttons">
-            {% for choice in form.comfort %}
-            <label class="btn btn-secondary">{{ choice }} </label>
-            {% endfor %}
-        </div>
-        <i class="fas fa-thumbs-up"></i>
 
         <div>{{ form.arousal.label }}</div>
         <i class="fas fa-thumbs-down"></i>
