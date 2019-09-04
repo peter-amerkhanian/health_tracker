@@ -9,14 +9,19 @@ class HealthForm(FlaskForm):
     def validate_unique(self, field):
         date_entry = field.data
         date = Entry.query.filter_by(date=datetime(date_entry.year, date_entry.month, date_entry.day)).first()
-        print('doin it')
         if date is not None:
-            print("error")
             raise ValidationError('That date already has an entry')
+
+    def validate_sleep(self, field):
+        print("sleep error")
+        entry = field.data
+        if int(entry) >= 24:
+            raise ValidationError('Cannot enter 24 hours or more')
 
     date = DateField('Date:', validators=[DataRequired(), validate_unique])
     hours_of_sleep = IntegerField('Hours of sleep',
-                                  validators=[DataRequired()])
+                                  validators=[DataRequired(message="Please enter an integer less than 24"),
+                                              validate_sleep])
     rest = RadioField('How rested do you feel?',
                       choices=[("1", "1"),
                                ("2", "2"),
@@ -85,7 +90,7 @@ class HealthForm(FlaskForm):
                                    ('meditation', 'meditation'),
                                    ('work', 'work'),
                                    ('breakfast', 'breakfast')],
-                          validators=[DataRequired(message="Please do not leave fields blank")])
+                          validators=[DataRequired()])
     pills = SelectField("Pills taken:",
                         choices=[
                             (0, '--Select One--'),
@@ -93,7 +98,7 @@ class HealthForm(FlaskForm):
                             ('Xanax', 'Xanax'),
                             ('painkiller', 'painkiller'),
                             ('sleeping pill', 'sleeping pill')],
-                        validators=[DataRequired(message="Please do not leave fields blank")])
+                        validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 

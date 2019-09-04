@@ -30,19 +30,29 @@
         <div class="form-group">
             {{ form.hours_of_sleep() }}
         </div>
+        {% if form.hours_of_sleep.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.hours_of_sleep.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div class="form-check">
-            {% if form.headache.errors %}
-            <div style="border-color: #f8d7da; border-style: solid; border-radius: 5px;">
-                {% endif %}
+            <!--{% if form.headache.errors %}-->
+            <!--<div style="border-color: #f8d7da; border-style: solid; border-radius: 5px;">-->
+                <!--{% endif %}-->
             <div><i class="far fa-dizzy"></i> {{ form.headache.label }}</div>
             {% for choice in form.headache %}
             <label>{{ choice }} {{ choice.label }} </label>
             {% endfor %}
-                {% if form.headache.errors %}
-            </div>
-            {% endif %}
+                <!--{% if form.headache.errors %}-->
+            <!--</div>-->
+            <!--{% endif %}-->
         </div>
+        {% if form.headache.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.headache.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div class="form-check">
             <div><i class="fas fa-cannabis"></i> {{ form.cannabis.label }}</div>
@@ -50,6 +60,11 @@
             <label class="">{{ choice }} {{ choice.label }} </label>
             {% endfor %}
         </div>
+        {% if form.cannabis.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.cannabis.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div class="form-check">
             <div><i class="far fa-smile"></i> {{ form.meditation.label }}</div>
@@ -57,6 +72,11 @@
             <label class="">{{ choice }} {{ choice.label }} </label>
             {% endfor %}
         </div>
+        {% if form.meditation.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.meditation.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <hr class="my-2">
 
@@ -66,6 +86,11 @@
                 <td>{{ form.morning(class_="form-control") }}</td>
             </tr>
         </div>
+        {% if form.morning.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.morning.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div><i class="fas fa-pills"></i> {{ form.pills.label }}</div>
         <div class="custom-control custom-radio mb-2" style="display: block;" role="group" data-toggle="buttons">
@@ -73,6 +98,11 @@
                 <td>{{ form.pills(class_="form-control") }}</td>
             </tr>
         </div>
+        {% if form.pills.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.pills.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div><i class="fas fa-running"></i> {{ form.exercise.label }}</div>
         <div class="custom-control custom-radio" role="group" data-toggle="buttons">
@@ -80,6 +110,11 @@
             <label class="">{{ choice }} {{ choice.label }} </label>
             {% endfor %}
         </div>
+        {% if form.exercise.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.exercise.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <hr class="my-2">
 
@@ -91,6 +126,11 @@
             {% endfor %}
         </div>
         <i class="far fa-thumbs-down"></i>
+        {% if form.fatigue.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.fatigue.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div>{{ form.stress.label }}</div>
         <i class="far fa-thumbs-up"></i>
@@ -100,6 +140,11 @@
             {% endfor %}
         </div>
         <i class="far fa-thumbs-down"></i>
+        {% if form.stress.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.stress.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div>{{ form.comfort.label }}</div>
         <i class="far fa-thumbs-up"></i>
@@ -109,6 +154,11 @@
             {% endfor %}
         </div>
         <i class="far fa-thumbs-down"></i>
+        {% if form.comfort.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.comfort.errors[0] }}</span>
+        </div>
+        {% endif %}
 
 
         <div>{{ form.rest.label }}</div>
@@ -119,6 +169,11 @@
             {% endfor %}
         </div>
         <i class="fas fa-thumbs-up"></i>
+        {% if form.rest.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.rest.errors[0] }}</span>
+        </div>
+        {% endif %}
 
 
         <div>{{ form.emotion.label }}</div>
@@ -129,6 +184,11 @@
             {% endfor %}
         </div>
         <i class="fas fa-thumbs-up"></i>
+        {% if form.emotion.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.emotion.errors[0] }}</span>
+        </div>
+        {% endif %}
 
 
         <div>{{ form.arousal.label }}</div>
@@ -139,6 +199,11 @@
             {% endfor %}
         </div>
         <i class="fas fa-thumbs-up"></i>
+        {% if form.arousal.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.arousal.errors[0] }}</span>
+        </div>
+        {% endif %}
 
         <div class="form-group">
             {{ form.submit(class="btn btn-primary mt-3 mb-2 mx-1") }}

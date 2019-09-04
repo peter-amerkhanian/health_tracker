@@ -25,10 +25,7 @@ def survey():
         session['logout_alert'] = True
         return redirect(url_for('login'))
     form = HealthForm()
-    print(form.date.data)
-    print(form.hours_of_sleep.data)
     if request.method == 'POST' and form.validate():
-        print("ok")
         date_entry = form.date.data
         entry = Entry(name=session['name'],
                       date=datetime(date_entry.year, date_entry.month, date_entry.day),
