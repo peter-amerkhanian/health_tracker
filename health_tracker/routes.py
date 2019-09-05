@@ -1,4 +1,4 @@
-from flask import render_template, session, url_for, redirect, send_from_directory, flash, request
+from flask import render_template, session, url_for, redirect, send_from_directory, request
 from health_tracker import app, db
 from health_tracker.forms import HealthForm, LoginForm
 from health_tracker.models import Entry
@@ -106,3 +106,16 @@ def download_xlsx():
     else:
         path = os.path.join(os.getcwd(), 'health_tracker', 'health_tracker', 'uploads')
     return send_from_directory(path, file, as_attachment=True)
+
+
+@app.route('/table')
+def table():
+    name = session.get('name')
+    if not name:
+        session['logout_alert'] = True
+        return redirect(url_for('login'))
+    user = UserData(name)
+    user.get_data_sqlite()
+    user.pandas_df
+    html = user.build_table()
+    return render_template('table.html', html=html)

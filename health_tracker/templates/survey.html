@@ -13,6 +13,12 @@
     <form method="POST" action="" class="m-2">
         {{ form.hidden_tag() }}
 
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span><b>Error.</b> Please review your answers</span>
+        </div>
+        {% endif %}
+
         <i class="far fa-calendar-alt"></i> {{ form.date.label }}
         <div class="form-group">
             {{ form.date(type="date") }}

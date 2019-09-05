@@ -30,15 +30,32 @@ class UserData:
                                       legend_font_size=24,
                                       font_family='googlefont:Work Sans')
         self.no_data_message = None
+        self.pandas_df = None
 
     def get_data_sqlite(self) -> None:
         """
-            init user's data
+            init user's data from a sqlite db
         """
+        # Init the data in the raw form
         self.data = Entry.query.filter(Entry.name == self.name).all()
+        # Init the data as a pandas df
+        df = pd.DataFrame([entry.__dict__ for entry in self.data])
+        df = df.drop("_sa_instance_state", axis=1)
+        df['date'] = pd.to_datetime(df["date"].dt.strftime('%Y-%m-%d'))
+        df = df.sort_values('date', ascending=False)
+        columns = df.columns.to_list()
+        print(columns)
+        date_and_bools = [3, 1, 7, 10]
+        varying_answers = [5, 8, 11, 13]
+        one_to_fives = [0, 2, 4, 6, 14, 15]
+        order = date_and_bools + varying_answers + one_to_fives
+        columns = [columns[ind] for ind in order]
+        print(columns)
+        df = df[columns]
+        self.pandas_df = df
 
     def get_data_postgres(self) -> None:
-        """ init user's data
+        """ init user's data from the connected postgres db
         """
         conn = psycopg2.connect(os.environ['DB_CONNECTION'])
         cursor = conn.cursor()
@@ -50,13 +67,7 @@ class UserData:
         :param path: file location to be saved at
         """
         if self.data:
-            df = pd.DataFrame([entry.__dict__ for entry in self.data])
-            df = df.drop("_sa_instance_state", axis=1)
-            columns = df.columns.to_list()
-            order = [7, 9, 2, 0, 1, 3, 4, 5, 6, 10, 11, 8]
-            columns = [columns[ind] for ind in order]
-            df = df[columns]
-            df.to_csv(path)
+            self.pandas_df.to_csv(path)
         else:
             print('No data initialized')
 
@@ -65,13 +76,20 @@ class UserData:
         :param path: file location to be saved at
         """
         if self.data:
-            df = pd.DataFrame([entry.__dict__ for entry in self.data])
-            df = df.drop("_sa_instance_state", axis=1)
-            columns = df.columns.to_list()
-            order = [7, 9, 2, 0, 1, 3, 4, 5, 6, 10, 11, 8]
-            columns = [columns[ind] for ind in order]
-            df = df[columns]
-            df.to_excel(path)
+            self.pandas_df.to_excel(path)
+        else:
+            print('No data initialized')
+
+    def build_table(self) -> str:
+        """ build html table of the pandas df
+        """
+        if self.data:
+            df = self.pandas_df
+            print("df to html")
+            html_string = df.to_html(index=False, justify='center')
+            html_string = html_string.replace('<table border="1" class="dataframe">', '')
+            html_string = html_string.replace('</table>', '')
+            return Markup(html_string)
         else:
             print('No data initialized')
 
@@ -98,10 +116,13 @@ class UserData:
                                legend_box_size=20,
                                truncate_legend=-1)
             # init data
-            date = [entry.__dict__['date'].strftime("%m/%d") for entry in self.data]
-            graph.x_labels = date
+            revered_df = self.pandas_df.sort_values('date', ascending=True)
+            dates = [x.strftime('%Y-%m-%d') for x in list(revered_df['date'])]
+            graph.x_labels = dates
+            print(graph.x_labels)
             for var in vars:
-                data = [entry.__dict__[var] for entry in self.data]
+                print(var)
+                data = list(revered_df[var])
                 graph.add('{} lvl'.format(var), data)
             path = os.path.join(os.getcwd(),'health_tracker', 'static') if \
                 os.getcwd().endswith('health_tracker') else \
