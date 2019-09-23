@@ -32,7 +32,7 @@
                     {% if message[0] == 'error' %}
                     <div class="alert alert-danger" role="alert">{{ message[1] }}</div>
                     {% elif message[0] == 'info' %}
-                    <div class="alert" role="alert">{{ message[1] }}</div>
+                    <div class="alert alert-info" role="alert">{{ message[1] }}</div>
                     {% endif %}
                 {% endfor %}
             {% endif %}
