@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block navbar %}
-<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-primary" href="{{ url_for('logout') }}">Logout</a>
 <a class="btn btn-primary active" href="{{ url_for('survey') }}">Survey</a>
 <a class="btn btn-primary" href="{{ url_for('data') }}">Data</a>
 {% endblock navbar %}
@@ -43,16 +43,10 @@
         {% endif %}
 
         <div class="form-check">
-            <!--{% if form.headache.errors %}-->
-            <!--<div style="border-color: #f8d7da; border-style: solid; border-radius: 5px;">-->
-                <!--{% endif %}-->
             <div><i class="far fa-dizzy"></i> {{ form.headache.label }}</div>
             {% for choice in form.headache %}
             <label>{{ choice }} {{ choice.label }} </label>
             {% endfor %}
-                <!--{% if form.headache.errors %}-->
-            <!--</div>-->
-            <!--{% endif %}-->
         </div>
         {% if form.headache.errors %}
         <div class="alert alert-danger" role="alert">

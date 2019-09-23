@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="mt-2 mb-3">
+    <h3>Sign up.</h3>
+</div>
+<div class="mb-5" style="">
+
+    <form method="POST" action="" class="m-2">
+        {{ sign_up.hidden_tag() }}
+
+        {% if sign_up.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span><b>Error.</b> Please review your answers</span>
+        </div>
+        {% endif %}
+
+        {{ sign_up.name.label }}
+        <div class="form-group">
+            {{ sign_up.name() }}
+        </div>
+        {% if sign_up.name.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for error in sign_up.name.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {{ sign_up.password.label }}
+        <div class="form-group">
+            {{ sign_up.password() }}
+        </div>
+        {% if sign_up.password.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for error in sign_up.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {{ sign_up.password2.label }}
+        <div class="form-group">
+            {{ sign_up.password2() }}
+        </div>
+        {% if sign_up.password2.errors %}
+        <div class="alert alert-danger" role="alert">
+            {% for error in sign_up.password2.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="form-group">
+            {{ sign_up.submit(class="btn btn-primary mt-3 mb-2 mx-1") }}
+        </div>
+    </form>
+</div>
+{% endblock content %}

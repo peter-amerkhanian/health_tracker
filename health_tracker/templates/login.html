@@ -5,33 +5,51 @@
 <a class="btn btn-primary" href="{{ url_for('data') }}">Data</a>
 {% endblock navbar %}
 {% block content %}
-    <div class="container">
-        {% if logout_alert %}
-        <div class="alert alert-info mb-3">
-            Session lost, please sign back in.
+<div class="container">
+    <form method="POST" action="" class="justify-content-center">
+        {{ form.hidden_tag() }}
+        <b>{{ form.name.label }}: </b>
+        <div class="form-group">
+            {{ form.name() }}
         </div>
-        {% endif %}
-        <form method="POST" action="" class="justify-content-center">
-            {{ form.hidden_tag() }}
-            <b>{{ form.name.label }}: </b>
-            <div class="form-group">
-                {{ form.name() }}
-            </div>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-primary mt-3 mb-2 mx-1") }}
-            </div>
-        </form>
         {% if form.name.errors %}
         <div class="alert alert-danger" role="alert">
             <span>{{ form.name.errors[0] }}</span>
         </div>
         {% endif %}
-    </div>
-<footer class="mastfoot mt-auto">
-        <div class="inner">
-            <p>
-                <small>built by <a href="https:peter-amerkhanian.github.io">Peter</a>.</small>
-            </p>
+        <b>{{ form.password.label }}: </b>
+        <div class="form-group">
+            {{ form.password() }}
         </div>
-    </footer>
+        {% if form.password.errors %}
+        <div class="alert alert-danger" role="alert">
+            <span>{{ form.password.errors[0] }}</span>
+        </div>
+        {% endif %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message[0] == 'error' %}
+                    <div class="alert alert-danger" role="alert">{{ message[1] }}</div>
+                    {% elif message[0] == 'info' %}
+                    <div class="alert" role="alert">{{ message[1] }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary mt-3 mb-2 mx-1") }}
+        </div>
+    </form>
+    <div class="container">
+        <small>No account? <a href="{{ url_for('sign_up') }}"><b>Register here.</b></a></small>
+    </div>
+</div>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        <p>
+            <small>built by <a href="https:peter-amerkhanian.github.io">Peter</a>.</small>
+        </p>
+    </div>
+</footer>
 {% endblock content %}

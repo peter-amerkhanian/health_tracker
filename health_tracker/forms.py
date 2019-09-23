@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms import IntegerField, SubmitField, RadioField, StringField, SelectField, DateTimeField, DateField
-from wtforms.validators import DataRequired, ValidationError
-from .models import Entry
+from wtforms import IntegerField, SubmitField, RadioField, StringField, SelectField, DateField, PasswordField, \
+    BooleanField
+from wtforms.validators import DataRequired, ValidationError, length, EqualTo
+from .models import Entry, User
 from datetime import datetime
 
 
@@ -102,9 +103,20 @@ class HealthForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+class RegistrationForm(FlaskForm):
+    name = StringField('Your first name', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    password2 = PasswordField('Repeat Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Register')
+
+    def validate_name(self, name):
+        user = User.query.filter_by(name=name.data).first()
+        if user is not None:
+            raise ValidationError("Name is already in use.")
+
+
 class LoginForm(FlaskForm):
-    def validate_name(form, field):
-        if field.data.lower() not in ['peter', 'tate', 'zarlasht', 'test']:
-            raise ValidationError('Sorry, you do not have an account with health tracker.')
-    name = StringField('Your first name', validators=[DataRequired(), validate_name])
+    name = StringField('Your first name', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
+    remember_me = BooleanField('Remember Me')
     submit = SubmitField('Submit')

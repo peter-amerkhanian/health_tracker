@@ -34,25 +34,28 @@ class UserData:
 
     def get_data_sqlite(self) -> None:
         """
-            init user's data from a sqlite db
+            init user's data from a sqlite db, creates pandas df
         """
         # Init the data in the raw form
         self.data = Entry.query.filter(Entry.name == self.name).all()
         # Init the data as a pandas df
-        df = pd.DataFrame([entry.__dict__ for entry in self.data])
-        df = df.drop("_sa_instance_state", axis=1)
-        df['date'] = pd.to_datetime(df["date"].dt.strftime('%Y-%m-%d'))
-        df = df.sort_values('date', ascending=False)
-        columns = df.columns.to_list()
-        print(columns)
-        date_and_bools = [3, 1, 7, 10]
-        varying_answers = [5, 8, 11, 13]
-        one_to_fives = [0, 2, 4, 6, 14, 15]
-        order = date_and_bools + varying_answers + one_to_fives
-        columns = [columns[ind] for ind in order]
-        print(columns)
-        df = df[columns]
-        self.pandas_df = df
+        if self.data:
+            df = pd.DataFrame([entry.__dict__ for entry in self.data])
+            df = df.drop("_sa_instance_state", axis=1)
+            df['date'] = pd.to_datetime(df["date"].dt.strftime('%Y-%m-%d'))
+            df = df.sort_values('date', ascending=False)
+            columns = df.columns.to_list()
+            print(columns)
+            date_and_bools = [3, 1, 7, 10]
+            varying_answers = [5, 8, 11, 13]
+            one_to_fives = [0, 2, 4, 6, 14, 15]
+            order = date_and_bools + varying_answers + one_to_fives
+            columns = [columns[ind] for ind in order]
+            print(columns)
+            df = df[columns]
+            self.pandas_df = df
+        else:
+            print("No data...")
 
     def get_data_postgres(self) -> None:
         """ init user's data from the connected postgres db

@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 {% block navbar %}
-<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-primary" href="{{ url_for('logout') }}">Logout</a>
 <a class="btn btn-primary" href="{{ url_for('survey') }}">Survey</a>
 <a class="btn btn-primary" href="{{ url_for('data') }}">Data</a>
 {% endblock navbar %}
 {% block content %}
 <main role="main" class="inner cover">
-<div> Thank you for filling out the survey, {{ name }}.<br/> See you tomorrow!</div>
+<div> Thank you for filling out the survey, {{ name }}!</div>
 </main>
 <footer class="mastfoot mt-auto">
         <div class="inner">
