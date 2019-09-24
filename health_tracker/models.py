@@ -3,11 +3,29 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
+class User(UserMixin, db.Model):
+    __tablename__ = "user"
+    id = db.Column(db.Integer, primary_key=True)
+    password_hash = db.Column(db.String(100))
+    name = db.Column(db.String(1000), unique=True)
+    entries = db.relationship('Entry', backref='author', lazy='dynamic')
+
+    def __repr__(self):
+        return '<User {}>'.format(self.name)
+
+    def set_password(self, password):
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.password_hash, password)
+
+
 class Entry(db.Model):
     __tablename__ = "entry"
-    name = db.Column(db.String(50), unique=False, nullable=False)
-    date = db.Column(db.DateTime, unique=True, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), unique=False, nullable=False)
+    date = db.Column(db.DateTime, unique=False, nullable=False)
     hours_of_sleep = db.Column(db.Integer, unique=False, nullable=True)
     rest = db.Column(db.Integer, unique=False, nullable=True)
     fatigue = db.Column(db.Integer, unique=False, nullable=True)
@@ -23,7 +41,7 @@ class Entry(db.Model):
     pills = db.Column(db.String(50), unique=False, nullable=True)
 
     def __repr__(self):
-        return "Entry('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')".format(
+        return "<Entry('{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}', '{}')>".format(
             self.name,
             self.date,
             self.arousal,
@@ -41,23 +59,6 @@ class Entry(db.Model):
             self.pills)
 
 
-class User(UserMixin, db.Model):
-    __tablename__ = "user"
-    id = db.Column(db.Integer, primary_key=True)
-    password_hash = db.Column(db.String(100))
-    name = db.Column(db.String(1000), unique=True)
-
-    def __repr__(self):
-        return '<User {}>'.format(self.name)
-
-    def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
-
-
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
-

@@ -58,6 +58,9 @@ def survey():
     form = HealthForm()
     if request.method == 'POST' and form.validate():
         date_entry = form.date.data
+        date = Entry.query.filter_by(name=name,
+                                     date=datetime(date_entry.year, date_entry.month, date_entry.day)).first()
+        print(date)
         entry = Entry(name=name,
                       date=datetime(date_entry.year, date_entry.month, date_entry.day),
                       hours_of_sleep=form.hours_of_sleep.data,

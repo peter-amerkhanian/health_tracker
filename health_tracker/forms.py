@@ -7,11 +7,12 @@ from datetime import datetime
 
 
 class HealthForm(FlaskForm):
-    def validate_unique(self, field):
-        date_entry = field.data
-        date = Entry.query.filter_by(date=datetime(date_entry.year, date_entry.month, date_entry.day)).first()
-        if date is not None:
-            raise ValidationError('That date already has an entry')
+    # def validate_unique(self, date):
+    #     date_entry = date.data
+    #     date = Entry.query.filter_by(date=datetime(date_entry.year, date_entry.month, date_entry.day)).first()
+    #     print(date)
+    #     if date is not None:
+    #         raise ValidationError('That date already has an entry')
 
     def validate_sleep(self, field):
         print("sleep error")
@@ -19,7 +20,7 @@ class HealthForm(FlaskForm):
         if int(entry) >= 24:
             raise ValidationError('Cannot enter 24 hours or more')
 
-    date = DateField('Date:', validators=[DataRequired(), validate_unique])
+    date = DateField('Date:', validators=[DataRequired()])
     hours_of_sleep = IntegerField('Hours of sleep',
                                   validators=[DataRequired(message="Please enter an integer less than 24"),
                                               validate_sleep])
