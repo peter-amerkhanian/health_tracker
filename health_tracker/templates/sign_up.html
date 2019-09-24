@@ -1,7 +1,12 @@
 {% extends "layout.html" %}
+{% block navbar %}
+<a class="btn btn-primary" href="{{ url_for('login') }}">Login</a>
+<a class="btn btn-primary" href="{{ url_for('survey') }}">Survey</a>
+<a class="btn btn-primary" href="{{ url_for('data') }}">Data</a>
+{% endblock navbar %}
 {% block content %}
-<div class="mt-2 mb-3">
-    <h3>Sign up.</h3>
+<div class="mt-2 mb-1">
+    <h3>Sign up:</h3>
 </div>
 <div class="mb-5" style="">
 
@@ -55,4 +60,11 @@
         </div>
     </form>
 </div>
+<footer class="mastfoot mt-auto">
+    <div class="inner">
+        <p>
+            <small>built by <a href="https:peter-amerkhanian.github.io">Peter</a>.</small>
+        </p>
+    </div>
+</footer>
 {% endblock content %}
