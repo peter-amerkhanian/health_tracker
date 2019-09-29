@@ -9,6 +9,17 @@
     Hello, {{ name }}
 </div>
 <div id="#myPage" class="mb-5" style="">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message[0] == 'error' %}
+                    <div class="alert alert-danger" role="alert">{{ message[1] }}</div>
+                    {% elif message[0] == 'info' %}
+                    <div class="alert alert-info" role="alert">{{ message[1] }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
 
     <form method="POST" action="" class="m-2">
         {{ form.hidden_tag() }}

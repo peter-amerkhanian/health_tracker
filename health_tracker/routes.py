@@ -15,7 +15,6 @@ def login():
         return redirect(url_for('survey'))
     form = LoginForm()
     if form.validate_on_submit():
-        print(form.data)
         user = User.query.filter_by(name=form.name.data).first()
         if user is None or not user.check_password(form.password.data):
             flash("Invalid name or password", 'error')
@@ -39,14 +38,11 @@ def logout():
 def sign_up():
     sign_up_form = RegistrationForm()
     if sign_up_form.validate_on_submit():
-        print('ok')
         user = User(name=sign_up_form.name.data, password_hash="null")
         user.set_password(sign_up_form.password.data)
-        print(user)
         db.session.add(user)
         db.session.commit()
         flash("Registration successful.", 'info')
-        print(sign_up_form.data)
         return redirect(url_for('login'))
     return render_template('sign_up.html', sign_up=sign_up_form)
 
@@ -60,7 +56,9 @@ def survey():
         date_entry = form.date.data
         date = Entry.query.filter_by(name=name,
                                      date=datetime(date_entry.year, date_entry.month, date_entry.day)).first()
-        print(date)
+        if date:
+            flash("That date already has an entry :(", "error")
+            return render_template('survey.html', name=name.title(), form=form)
         entry = Entry(name=name,
                       date=datetime(date_entry.year, date_entry.month, date_entry.day),
                       hours_of_sleep=form.hours_of_sleep.data,
@@ -76,7 +74,6 @@ def survey():
                       cannabis=form.cannabis.data,
                       morning=form.morning.data
                       )
-        print(entry)
         db.session.add(entry)
         db.session.commit()
         return render_template('thank_you.html', name=name.title())
